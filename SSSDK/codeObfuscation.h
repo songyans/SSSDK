@@ -1,0 +1,25 @@
+#ifndef Demo_codeObfuscation_h
+#define Demo_codeObfuscation_h
+//confuse string at Thu Jun  7 17:50:00 CST 2018
+#define getManagerBySingleton GrCTaLxgjiuCDMOc
+#define registerCenter KuXTmCOfrUjtwfva
+#define songyorkInfo xVkjeFrKhNhEcPsc
+#define checkSongyorkFromLocal eePrmbdEynbnWGBT
+#define startShowTheOrderViewWithViewController WUdWWgZDUJEsOIOY
+#define justApplePayForGameWithViewController AvnOybOLaRgUWjFz
+#define dealWithSongyorkInfo OhwDaKmfHgIRnHxS
+#define applePayBegainCheckInfoWithViewController IUcAkuSKQcvyjovF
+#define applePayBegainActionWithViewController nCtScdyDpTFLsmES
+#define actionBegainWithViewController JcirPdSbAqKnxuaq
+#define requestProductInfoWithKey GkbXZkEPVFuGcGMO
+#define informBackgroundShipWithDict MWHjuuMUzdFabxvN
+#define relinkServerWithParams AdHXMFLDQigNhQLQ
+#define checkSongyorkWithSongyorkInfo cixFnzcNAsQCzrUJ
+#define requestSongyorkWithInfo YTUMZWzkeFBnSEKX
+#define callBackToSongyorkServerWithReceiptInfo vWxJvwZStXCSpcvN
+#define checkSYToServerWithReceiptInfo wGIUkwHTLpTXBJzw
+#define checkWebSYSignWithParams zTDGpcUUyLvzbnOa
+#define createFloatWindow QoFemOEEPbflvxsk
+#define destroyFloatWindow IGOMQqzeURNNvaWn
+#define paramterIsNilOrNotStringShowToViewController xlVmPNtKIVhUuKTy
+#endif

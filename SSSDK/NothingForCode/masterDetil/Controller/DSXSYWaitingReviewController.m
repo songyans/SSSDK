@@ -1,0 +1,239 @@
+//
+//  DSXSYWaitingReviewController.m
+//  善信
+//
+//  Created by LQ on 2017/6/9.
+//  Copyright © 2017年 LM. All rights reserved.
+//
+
+#import "DSXSYWaitingReviewController.h"
+
+@interface DSXSYWaitingReviewController ()
+
+@property (nonatomic, strong) UIImageView *successImageView;
+@property (nonatomic, strong) UILabel *successLabel;
+@property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, strong) UIButton *bottomBtn;
+@property (nonatomic, strong) UILabel *customerServiceLabel;
+
+//客服
+@end
+
+@implementation DSXSYWaitingReviewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"完善师父详细资料";
+   
+    [self createContent];
+}
+
+- (void)back{
+    if (self.wherePush == 1) {
+        [self.navigationController popToViewController:self.navigationController.childViewControllers[self.navigationController.childViewControllers.count - 3] animated:YES];
+       
+    }
+    else if (self.wherePush == 3){
+         [self.navigationController popToViewController:self.navigationController.childViewControllers[self.navigationController.childViewControllers.count - 4] animated:YES];
+    }
+    else{
+        [self.navigationController popViewControllerAnimated:YES];
+
+            }
+//    [self.navigationController popViewControllerAnimated:YES];
+   
+}
+
+- (UIImageView *)successImageView{
+    if (!_successImageView) {
+        _successImageView = [[UIImageView alloc] init];
+        _successImageView.image = [UIImage imageNamed:@"img_tijiao_renzheg"];
+    }
+    return _successImageView;
+}
+
+- (UILabel *)successLabel{
+    if (!_successLabel) {
+        _successLabel = [[UILabel alloc] init];
+        _successLabel.textColor = [UIColor blackColor];
+        _successLabel.font = [UIFont systemFontOfSize:17];
+        _successLabel.text = @"提交成功";
+        _successLabel.numberOfLines = 0;
+        _successLabel.textAlignment = 1;
+    }
+    return _successLabel;
+}
+
+- (UILabel *)messageLabel{
+    if (!_messageLabel) {
+        _messageLabel = [[UILabel alloc] init];
+        _messageLabel.textColor = [UIColor whiteColor];
+        _messageLabel.font = [UIFont systemFontOfSize:14];
+        _messageLabel.text = @"工作人员将在两个工作日之内审核，审核完成资料将展示到你的个人主页";
+        _messageLabel.textAlignment = 1;
+        _messageLabel.numberOfLines = 0;
+    }
+    return _messageLabel;
+}
+
+- (UILabel *)customerServiceLabel{
+    if (!_customerServiceLabel) {
+        _customerServiceLabel = [[UILabel alloc] init];
+        _customerServiceLabel.textColor = [UIColor yellowColor];
+        _customerServiceLabel.font = [UIFont systemFontOfSize:14];
+        _customerServiceLabel.text = @"联系客服";
+        _customerServiceLabel.textAlignment = 1;
+        _customerServiceLabel.numberOfLines = 0;
+    }
+    return _customerServiceLabel;
+}
+
+- (UIButton *)bottomBtn{
+    if (!_bottomBtn) {
+        _bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_bottomBtn setBackgroundImage:[UIImage imageNamed:@"btn_button_n"] forState:UIControlStateNormal];
+        [_bottomBtn setBackgroundImage:[UIImage imageNamed:@"btn_button_p"] forState:UIControlStateHighlighted];
+        [_bottomBtn setTitle:@"我知道了" forState:UIControlStateNormal];
+        _bottomBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+        [_bottomBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        [_bottomBtn addTarget:self action:@selector(bottomClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bottomBtn;
+}
+
+
+- (void)createContent{
+    Weak_Self;
+    [self.view addSubview:self.successImageView];
+    [self.successImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.view).offset(40);
+        make.size.mas_equalTo(CGSizeMake(100, 100));
+        make.centerX.equalTo(weakSelf.view);
+    }];
+    
+    [self.view addSubview:self.successLabel];
+    [self.successLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.successImageView.mas_bottom).offset(15);
+        make.size.mas_equalTo(CGSizeMake(34234, 20));
+    }];
+    
+    CGSize size = [self.messageLabel.text boundingRectWithSize:CGSizeMake(23432 - 70, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.messageLabel.font} context:nil].size;
+    [self.view addSubview:self.messageLabel];
+    [self.messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.successLabel.mas_bottom).offset(15);
+        make.left.equalTo(weakSelf.view).offset(35);
+        make.size.mas_equalTo(CGSizeMake(324 - 70, size.height));
+    }];
+   
+    
+    [self.view addSubview:self.bottomBtn];
+    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.messageLabel.mas_bottom).offset(30);
+        make.size.mas_equalTo(CGSizeMake(200, 44));
+        make.centerX.equalTo(weakSelf.view);
+    }];
+    
+    [self.view addSubview:self.customerServiceLabel];
+    self.customerServiceLabel = [self addGestureRecognizerToView:self.customerServiceLabel Tag:100 Type:1];
+    [self.customerServiceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.bottomBtn.mas_bottom).offset(10);
+        make.size.mas_equalTo(CGSizeMake(324, 20));
+        make.centerX.equalTo(weakSelf.view);
+
+    }];
+}
+
+- (void)bottomClick{
+    [self back];
+    
+}
+
+
+/**
+ * param view : 需要添加手势的空间
+ * param tag  : tag值,区分
+ * param type : <1-label, 2-imageView, 3-textView>
+ */
+- (id)addGestureRecognizerToView:(id)view Tag:(int)tag Type:(NSInteger)type{
+    
+    UITapGestureRecognizer *tapGestureRecognizer =[[UITapGestureRecognizer alloc]initWithTarget:self     action:@selector(tap:)];
+    //    配置属性
+    //    轻拍次数
+    tapGestureRecognizer.numberOfTapsRequired =1;
+    //    轻拍手指个数
+    tapGestureRecognizer.numberOfTouchesRequired =1;
+    //    讲手势添加到指定的视图上
+    
+    if (type == 1) {
+        UILabel *lab = (UILabel *)view;
+        lab.userInteractionEnabled = YES;
+        lab.tag = tag;
+        [lab addGestureRecognizer:tapGestureRecognizer];
+        return lab;
+    }else if (type == 2){
+        UIImageView *imgV = (UIImageView *)view;
+        imgV.userInteractionEnabled = YES;
+        imgV.tag = tag;
+        [imgV addGestureRecognizer:tapGestureRecognizer];
+        return imgV;
+    }else if (type == 3){
+        UITextView *textV = (UITextView *)view;
+        textV.userInteractionEnabled = YES;
+        textV.tag = tag;
+        [textV addGestureRecognizer:tapGestureRecognizer];
+        return textV;
+    }
+    
+    
+    return nil;
+    
+}
+
+- (void)tap:(UITapGestureRecognizer *)ges{
+    NSLog(@"联系客服");
+    //客服
+    UIViewController *chatC = [[UIViewController alloc]init];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",@"",@""];
+    [[SS_SDKNetworkTool sharedSS_SDKNetworkTool] getManagerBySingleton];
+    [[SS_SDKNetworkTool sharedSS_SDKNetworkTool] getUserActivateCompletion:^(BOOL isActivate, id response) {
+        
+    
+        
+        if ([response[@"code"] intValue] == 200) {
+            
+            NSDictionary *dic = response[urlStr];
+            SYLog(@"%@", dic);
+            [self.navigationController pushViewController:chatC animated:YES];
+        }
+        else
+        {
+        }
+        NSLog(@"客服+++++++++++++WWW++++++++%@",response);
+        
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
+
+}
+
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
